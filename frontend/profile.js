@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api"; // ✅ FIXED
+const API_URL = "https://devhub-1-yefd.onrender.com"; // ✅ FIXED
 
 // Load Profile Data
 async function fetchProfile() {
