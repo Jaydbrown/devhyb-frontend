@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/jobs";
+const API_URL = "https://devhub-1-yefd.onrender.com";
 const jobForm = document.getElementById("jobForm");
 const jobsList = document.getElementById("jobsList");
 const messageBox = document.getElementById("messageBox");
