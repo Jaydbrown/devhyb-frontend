@@ -1,4 +1,4 @@
-const API_URL = "https://devhub-1-yefd.onrender.com";
+const API_URL = "https://devhub-1-yefd.onrender.com/api/jobs";
 const jobForm = document.getElementById("jobForm");
 const jobsList = document.getElementById("jobsList");
 const messageBox = document.getElementById("messageBox");
@@ -15,7 +15,7 @@ function showMessage(msg, type = "success") {
     setTimeout(() => messageBox.classList.add("hidden"), 3000);
 }
 
-// Fetch all jobs from backend
+// Fetch all jobs
 async function fetchJobs() {
     try {
         const res = await fetch(API_URL);
@@ -29,7 +29,7 @@ async function fetchJobs() {
     }
 }
 
-// Display jobs in the UI
+// Display jobs
 function displayJobs(jobs) {
     jobsList.innerHTML = jobs.length
         ? jobs.map(job => `
@@ -51,10 +51,7 @@ function displayJobs(jobs) {
 jobForm.addEventListener("submit", async e => {
     e.preventDefault();
 
-    //  Get the logged-in user from localStorage
     const user = JSON.parse(localStorage.getItem("devhub_user"));
-
-    //  Check if user is logged in
     if (!user || !user.id) {
         showMessage("You must be logged in to post a job.", "error");
         return;
@@ -63,7 +60,6 @@ jobForm.addEventListener("submit", async e => {
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
     const budget = document.getElementById("budget").value;
-    const deadline = document.getElementById("deadline")?.value || null;
 
     try {
         const res = await fetch(API_URL, {
@@ -73,7 +69,7 @@ jobForm.addEventListener("submit", async e => {
                 title,
                 description,
                 budget,
-                client_id: user.id            
+                client_id: user.id
             })
         });
 
@@ -88,7 +84,7 @@ jobForm.addEventListener("submit", async e => {
     }
 });
 
-// Apply for a job
+// Apply for job
 async function applyForJob(jobId) {
     try {
         const user = JSON.parse(localStorage.getItem("devhub_user"));
@@ -112,7 +108,7 @@ async function applyForJob(jobId) {
     }
 }
 
-// Assign a developer manually
+// Assign developer
 async function assignDeveloper(jobId) {
     try {
         const developerId = prompt("Enter developer ID:");
