@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/developers";
+const API_URL = "https://devhub-1-yefd.onrender.com";
 const profileContainer = document.getElementById("developerProfile");
 const messageBox = document.getElementById("messageBox");
 
