@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevHub | Developer Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="top-0 left-0 z-50 fixed bg-white shadow-md w-full">
+    <div class="flex justify-between items-center mx-auto px-4 py-4 max-w-7xl">
+      <h1 class="font-bold text-indigo-600 text-2xl">DevHub</h1>
+      <div>
+        <a href="dashboard.html" class="mx-3 text-gray-700 hover:text-indigo-600">Dashboard</a>
+        <a href="jobs.html" class="mx-3 text-gray-700 hover:text-indigo-600">Jobs</a>
+        <a href="developers.html" class="mx-3 text-gray-700 hover:text-indigo-600">Developers</a>
+        <a href="profile.html" class="mx-3 text-gray-700 hover:text-indigo-600">Profile</a>
+        <a href="../index.html" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded text-white">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Container -->
+  <div class="mx-auto px-4 pt-24 max-w-4xl">
+    <div id="developerProfile" class="bg-white shadow-md p-6 border border-gray-200 rounded-xl"></div>
+  </div>
+
+  <!-- Success & Error Messages -->
+  <div id="messageBox" class="hidden right-6 bottom-6 fixed shadow-lg px-6 py-3 rounded-lg"></div>
+
+  <script src="../js/developer-profile.js"></script>
+</body>
+</html>
