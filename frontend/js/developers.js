@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/developers";
+const API_URL = "https://devhub-1-yefd.onrender.com";
 const developersList = document.getElementById("developersList");
 const searchInput = document.getElementById("searchInput");
 
