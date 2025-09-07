@@ -1,5 +1,5 @@
 // public/js/auth.js
-const API_URL = "https://devhub-1-yefd.onrender.com";
+const API_URL = "https://devhub-1-yefd.onrender.com/api/auth"; // ✅ FIXED
 
 // Show login modal
 function showLogin() {
@@ -41,11 +41,11 @@ document.getElementById("loginFormEl")?.addEventListener("submit", async (e) => 
     localStorage.setItem("devhub_token", data.token);
     localStorage.setItem("devhub_user", JSON.stringify(data.user));
 
-    alert("Login successful!");
+    alert("✅ Login successful!");
     closeAuth();
     window.location.href = "dashboard.html";
   } catch (err) {
-    alert(`${err.message}`);
+    alert(`❌ ${err.message}`);
   }
 });
 
@@ -68,13 +68,13 @@ document.getElementById("registerFormEl")?.addEventListener("submit", async (e) 
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Signup failed");
 
-    // ✅ Save token & user data immediately
+    // Save token & user data immediately
     localStorage.setItem("devhub_token", data.token);
     localStorage.setItem("devhub_user", JSON.stringify(data.user));
 
-    alert("Registration successful! Redirecting...");
-    window.location.href = "dashboard.html"; // Redirect directly to dashboard
+    alert("✅ Registration successful! Redirecting...");
+    window.location.href = "dashboard.html";
   } catch (err) {
-    alert(`${err.message}`);
+    alert(`❌ ${err.message}`);
   }
 });
