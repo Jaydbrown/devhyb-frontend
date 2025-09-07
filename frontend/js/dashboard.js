@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/dashboard";
+const API_URL = "https://devhub-1-yefd.onrender.com";
 
 // Fetch Dashboard Data
 async function fetchDashboardData() {
