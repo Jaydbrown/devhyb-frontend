@@ -1,5 +1,5 @@
 // public/js/auth.js
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = "https://devhub-1-yefd.onrender.com";
 
 // Show login modal
 function showLogin() {
