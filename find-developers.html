@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Developers - DevHub</title>
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #f9fafc;
+      color: #333;
+    }
+
+    /* ===== TOP NAV ===== */
+    .top-nav {
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 15px 8%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .top-nav .logo a {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #007bff;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== FIND DEVELOPERS SECTION ===== */
+    .find-developers {
+      padding: 60px 10%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: #666;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 0.95rem;
+      width: 100%;
+      max-width: 230px;
+      transition: border 0.3s;
+    }
+
+    .filter-bar input:focus,
+    .filter-bar select:focus {
+      border-color: #007bff;
+    }
+
+    .filter-bar button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .filter-bar button:hover {
+      background: #005ecb;
+    }
+
+    /* ===== DEVELOPER LIST (VERTICAL) ===== */
+    .developer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .developer-card {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1.5rem;
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .developer-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    .developer-card img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .dev-info {
+      flex: 1;
+      text-align: left;
+    }
+
+    .dev-info h3 {
+      color: #007bff;
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+
+    .dev-skill {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .dev-bio {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .rating {
+      font-size: 0.9rem;
+      color: #f5b301;
+      margin-bottom: 1rem;
+    }
+
+    .dev-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-blue,
+    .btn-outline {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .btn-blue {
+      background: #007BFF;
+      color: white;
+    }
+
+    .btn-blue:hover {
+      background: #0056c7;
+    }
+
+    .btn-outline {
+      border: 1px solid #007BFF;
+      color: #007BFF;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: #007BFF;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .developer-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+
+      .dev-info {
+        text-align: center;
+      }
+
+      .dev-buttons {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="top-nav">
+    <div class="logo">
+      <a href="index.html">DevHub</a>
+    </div>
+  </nav>
+
+  <!-- ===== FIND DEVELOPERS SECTION ===== -->
+  <section class="find-developers">
+    <div class="section-header">
+      <h2>Find Developers For You</h2>
+      <p>Search and connect with skilled freelance developers ready to bring your vision to life.</p>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <input type="text" placeholder="Search by name or keyword...">
+      <select>
+        <option value="">Skill</option>
+        <option>Frontend Developer</option>
+        <option>Backend Developer</option>
+        <option>UI/UX Designer</option>
+        <option>Mobile Developer</option>
+      </select>
+      <select>
+        <option value="">Location</option>
+        <option>Nigeria</option>
+        <option>USA</option>
+        <option>UK</option>
+        <option>India</option>
+      </select>
+      <select>
+        <option value="">Rating</option>
+        <option>4 Stars & Above</option>
+        <option>3 Stars & Above</option>
+        <option>All Ratings</option>
+      </select>
+      <button>Apply Filters</button>
+    </div>
+
+    <!-- DEVELOPER LIST -->
+    <div class="developer-list">
+
+      <div class="developer-card">
+        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Developer Photo" />
+        <div class="dev-info">
+          <h3>Emmanuel Adeyemi</h3>
+          <p class="dev-skill">Full Stack Developer</p>
+          <p class="dev-bio">Experienced in React, Node.js, and API integrations. Building scalable web apps since 2018.</p>
+          <div class="rating">⭐ 4.9 (120 reviews)</div>
+          <div class="dev-buttons">
+            <a href="developer-profile.html" class="btn-outline">View Profile</a>
+            <a href="message-developer.html" class="btn-blue">Message Developer</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="developer-card">
+        <img src="https://randomuser.me/api/portraits/women/50.jpg" alt="Developer Photo" />
+        <div class="dev-info">
+          <h3>Amaka Nwosu</h3>
+          <p class="dev-skill">UI/UX Designer</p>
+          <p class="dev-bio">Passionate about creating delightful user experiences with Figma and Adobe XD.</p>
+          <div class="rating">⭐ 4.8 (95 reviews)</div>
+          <div class="dev-buttons">
+            <a href="developer-profile.html" class="btn-outline">View Profile</a>
+            <a href="message-developer.html" class="btn-blue">Message Developer</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="developer-card">
+        <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Developer Photo" />
+        <div class="dev-info">
+          <h3>Victor Eze</h3>
+          <p class="dev-skill">Mobile App Developer</p>
+          <p class="dev-bio">Building intuitive Android and iOS apps with Flutter and React Native.</p>
+          <div class="rating">⭐ 5.0 (150 reviews)</div>
+          <div class="dev-buttons">
+            <a href="developer-profile.html" class="btn-outline">View Profile</a>
+            <a href="message-developer.html" class="btn-blue">Message Developer</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <script src="api.js"></script>
+  <sript src="find-developers.js"></sript>
+</body>
+</html>

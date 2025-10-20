@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Profile - DevHub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f9fafc;
+      color: #333;
+    }
+
+    /* ===== NAV ===== */
+    .top-nav {
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 15px 8%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .logo a {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    /* ===== PROFILE SECTION ===== */
+    .profile-container {
+      max-width: 900px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      padding: 2rem;
+    }
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .profile-header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .profile-header h2 {
+      color: #007bff;
+      margin-bottom: 5px;
+    }
+
+    .profile-header p {
+      color: #555;
+      font-size: 1rem;
+    }
+
+    .rating {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: #f5b301;
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .about {
+      margin-bottom: 2rem;
+    }
+
+    .about h3 {
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+
+    .about p {
+      color: #555;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* ===== SKILLS ===== */
+    .skills {
+      margin-bottom: 2rem;
+    }
+
+    .skills h3 {
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .skill-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-card {
+      background: #f0f4ff;
+      color: #007bff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* ===== PORTFOLIO ===== */
+    .portfolio {
+      margin-bottom: 2rem;
+    }
+
+    .portfolio h3 {
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .portfolio-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .portfolio-slider img {
+      width: 100%;
+      display: none;
+      border-radius: 10px;
+    }
+
+    .portfolio-slider img.active {
+      display: block;
+    }
+
+    .portfolio-controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .portfolio-controls button {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0 5px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .portfolio-controls button:hover {
+      background: #005ecb;
+    }
+
+    /* ===== REVIEWS ===== */
+    .reviews {
+      margin-bottom: 2rem;
+    }
+
+    .reviews h3 {
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .review {
+      background: #f9fafc;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .review strong {
+      color: #007bff;
+    }
+
+    .review small {
+      color: #777;
+      font-size: 0.85rem;
+    }
+
+    .review p {
+      color: #555;
+      margin-top: 5px;
+    }
+
+    /* ===== COMMENTS ===== */
+    .comments {
+      margin-bottom: 2rem;
+    }
+
+    .comments h3 {
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .comment-form textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      outline: none;
+      resize: none;
+      height: 80px;
+    }
+
+    .comment-form button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .comment-form button:hover {
+      background: #005ecb;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing {
+      background: #f0f4ff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .pricing h3 {
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+
+    .pricing p {
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .pricing .price {
+      font-size: 1.8rem;
+      color: #007bff;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .pricing button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .pricing button:hover {
+      background: #005ecb;
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <nav class="top-nav">
+    <div class="logo"><a href="index.html">DevHub</a></div>
+  </nav>
+
+  <!-- ===== PROFILE ===== -->
+  <section class="profile-container" id="profile">
+    <div class="profile-header">
+      <img id="dev-image" src="" alt="Developer Photo" />
+      <h2 id="dev-name"></h2>
+      <p id="dev-role"></p>
+      <div class="rating" id="dev-rating"></div>
+    </div>
+
+    <div class="about">
+      <h3>About</h3>
+      <p id="dev-bio"></p>
+    </div>
+
+    <div class="skills">
+      <h3>Skills</h3>
+      <div class="skill-cards" id="skill-cards"></div>
+    </div>
+
+    <div class="portfolio">
+      <h3>Portfolio</h3>
+      <div class="portfolio-slider" id="portfolio-slider"></div>
+      <div class="portfolio-controls">
+        <button onclick="prevSlide()">Prev</button>
+        <button onclick="nextSlide()">Next</button>
+      </div>
+    </div>
+
+    <div class="reviews">
+      <h3>Client Reviews</h3>
+      <div id="reviews-list"></div>
+    </div>
+
+    <div class="comments">
+      <h3>Leave a Comment</h3>
+      <form class="comment-form" id="comment-form">
+        <textarea id="comment-text" placeholder="Write your feedback..."></textarea>
+        <button type="submit">Submit Comment</button>
+      </form>
+    </div>
+
+    <div class="pricing">
+      <h3>Pricing</h3>
+      <p>Hourly rate starting at</p>
+      <div class="price" id="dev-price"></div>
+      <button>Hire Developer</button>
+    </div>
+  </section>
+
+  <script>
+    const apiBase = "http://localhost:5000/api/developers";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const devId = urlParams.get("id") || 1; // default to 1
+
+    async function loadDeveloper() {
+      const res = await fetch(`${apiBase}/${devId}`);
+      const dev = await res.json();
+
+      document.getElementById("dev-image").src = dev.image;
+      document.getElementById("dev-name").innerText = dev.name;
+      document.getElementById("dev-role").innerText = `${dev.role} | ${dev.skills.join(" • ")}`;
+      document.getElementById("dev-rating").innerText = `⭐ ${dev.rating} (${dev.reviews} reviews)`;
+      document.getElementById("dev-bio").innerText = dev.bio;
+      document.getElementById("dev-price").innerText = `$${dev.hourlyRate || 45} / hour`;
+
+      const skillsContainer = document.getElementById("skill-cards");
+      dev.skills.forEach(skill => {
+        const div = document.createElement("div");
+        div.classList.add("skill-card");
+        div.innerText = skill;
+        skillsContainer.appendChild(div);
+      });
+
+      const portfolioSlider = document.getElementById("portfolio-slider");
+      (dev.portfolio || [
+        "https://source.unsplash.com/900x500/?code",
+        "https://source.unsplash.com/900x500/?webapp",
+        "https://source.unsplash.com/900x500/?project"
+      ]).forEach((img, i) => {
+        const image = document.createElement("img");
+        image.src = img;
+        if (i === 0) image.classList.add("active");
+        portfolioSlider.appendChild(image);
+      });
+
+      const reviewsList = document.getElementById("reviews-list");
+      if (dev.Reviews && dev.Reviews.length > 0) {
+        dev.Reviews.forEach(r => {
+          const div = document.createElement("div");
+          div.classList.add("review");
+          div.innerHTML = `<strong>${r.author}</strong> <small>• rating ${r.rating}</small><p>${r.message}</p>`;
+          reviewsList.appendChild(div);
+        });
+      }
+    }
+
+    document.getElementById("comment-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = document.getElementById("comment-text").value;
+      if (!text.trim()) return alert("Write something first!");
+
+      await fetch(`${apiBase}/${devId}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, author: "Guest" }),
+      });
+
+      alert("Comment submitted!");
+      document.getElementById("comment-text").value = "";
+    });
+
+    // ===== Portfolio slideshow =====
+    let slideIndex = 0;
+    function showSlide(index) {
+      const slides = document.querySelectorAll(".portfolio-slider img");
+      slides.forEach((s, i) => {
+        s.classList.remove("active");
+        if (i === index) s.classList.add("active");
+      });
+    }
+    function nextSlide() {
+      const slides = document.querySelectorAll(".portfolio-slider img");
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    }
+    function prevSlide() {
+      const slides = document.querySelectorAll(".portfolio-slider img");
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    setInterval(nextSlide, 5000);
+    loadDeveloper();
+  </script>
+  <script src="api.js"></script>
+  <script src="developer-profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevHub – Sign Up & Login</title>
+  <style>
+    :root {
+      --primary: #007bff;
+      --light-gray: #f5f5f5;
+      --text: #222;
+      --border: #ddd;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: var(--light-gray);
+      color: var(--text);
+    }
+
+    /* Navbar (already part of your site) */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+    }
+
+    .nav-left {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-right input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .nav-btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      transition: 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #0056c2;
+    }
+
+    /* ===== Modals ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px; right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input, select, textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background: #0056c2;
+    }
+
+    .btn-secondary {
+      background: #ccc;
+      color: #000;
+    }
+
+    .btn-secondary:hover {
+      background: #bbb;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .dot {
+      width: 10px; height: 10px;
+      background: #ccc;
+      border-radius: 50%;
+    }
+
+    .dot.active {
+      background: var(--primary);
+    }
+
+    .hidden { display: none; }
+
+    .generate-btn {
+      background: transparent;
+      color: var(--primary);
+      text-decoration: underline;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">DevHub</div>
+    <div class="nav-right">
+      <input type="text" placeholder="Search developers..." />
+      <button class="nav-btn" id="openLogin">Log In</button>
+      <button class="nav-btn" id="openSignup">Sign Up</button>
+    </div>
+  </nav>
+
+  <!-- ===== Login Modal ===== -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+      <h2>Log In</h2>
+      <form id="loginForm">
+        <input type="email" placeholder="Email address" required />
+        <input type="password" placeholder="Password" required />
+        <label><input type="checkbox" /> Remember Me</label>
+        <button type="submit">Log In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== Signup Modal (3 steps) ===== -->
+  <div class="modal" id="signupModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('signupModal')">&times;</button>
+      <h2>Sign Up</h2>
+      <div class="step-indicator">
+        <div class="dot" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <form id="signupStep1" class="signup-step">
+        <input id="fullName" type="text" placeholder="Full Name" required />
+        <input id="email" type="email" placeholder="Email Address" required />
+        <input id="password" type="password" placeholder="Password" required />
+        <input id="confirmPassword" type="password" placeholder="Confirm Password" required />
+        <select id="userType">
+          <option value="">Select User Type</option>
+          <option value="Developer">Developer</option>
+          <option value="Client">Client</option>
+        </select>
+        <label><input type="checkbox" required /> Agree to Terms</label>
+        <button type="button" onclick="nextStep(2)">Next</button>
+        <button class="generate-btn" type="button" onclick="generateDemo()">Generate Demo Details</button>
+      </form>
+
+      <!-- Step 2 (Developer or Client details) -->
+      <form id="signupStep2" class="signup-step hidden">
+        <div id="devFields" class="">
+          <input type="text" placeholder="Username / Display Name" />
+          <textarea placeholder="Short Bio"></textarea>
+          <input type="text" placeholder="Skills (comma separated)" />
+          <select>
+            <option value="">Experience Level</option>
+            <option>Junior</option><option>Mid</option><option>Senior</option>
+          </select>
+          <input type="number" placeholder="Years of Experience" />
+          <input type="url" placeholder="Portfolio / GitHub link" />
+          <input type="text" placeholder="Location / Timezone" />
+          <input type="number" placeholder="Hourly Rate (USD)" />
+        </div>
+        <div id="clientFields" class="hidden">
+          <input type="text" placeholder="Company / Organization Name" />
+          <input type="url" placeholder="Company Website" />
+          <input type="text" placeholder="Industry" />
+          <input type="text" placeholder="Company Size" />
+          <input type="email" placeholder="Work Email" />
+          <input type="text" placeholder="Project Budget Range" />
+          <input type="text" placeholder="Location / Timezone" />
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:8px;">
+          <button type="button" class="btn-secondary" onclick="prevStep(1)">Back</button>
+          <button type="button" onclick="nextStep(3)">Next</button>
+        </div>
+      </form>
+
+      <!-- Step 3 -->
+      <form id="signupStep3" class="signup-step hidden">
+        <input type="tel" placeholder="Phone Number" />
+        <input type="text" placeholder="Verification Code" />
+        <select>
+          <option>Preferred Communication</option>
+          <option>Email</option>
+          <option>WhatsApp</option>
+          <option>Slack</option>
+        </select>
+        <label><input type="checkbox" /> Subscribe to updates</label>
+        <label><input type="checkbox" required /> Agree to Privacy Policy</label>
+        <div style="display:flex;justify-content:space-between;gap:8px;">
+          <button type="button" class="btn-secondary" onclick="prevStep(2)">Back</button>
+          <button type="submit">Finish & Create Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const steps = [1, 2, 3];
+    let currentStep = 1;
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      updateDots();
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      currentStep = 1;
+      showStep(1);
+    }
+
+    document.getElementById('openSignup').onclick = () => openModal('signupModal');
+    document.getElementById('openLogin').onclick = () => openModal('loginModal');
+
+    function nextStep(n) {
+      const userType = document.getElementById('userType').value;
+      if (n === 2 && !userType) {
+        alert("Please select user type first.");
+        return;
+      }
+      currentStep = n;
+      showStep(n);
+    }
+
+    function prevStep(n) {
+      currentStep = n;
+      showStep(n);
+    }
+
+    function showStep(n) {
+      steps.forEach(step => {
+        document.getElementById(`signupStep${step}`).classList.add('hidden');
+        document.getElementById(`dot${step}`).classList.remove('active');
+      });
+      document.getElementById(`signupStep${n}`).classList.remove('hidden');
+      document.getElementById(`dot${n}`).classList.add('active');
+
+      const userType = document.getElementById('userType').value;
+      if (n === 2) {
+        if (userType === 'Developer') {
+          document.getElementById('devFields').classList.remove('hidden');
+          document.getElementById('clientFields').classList.add('hidden');
+        } else if (userType === 'Client') {
+          document.getElementById('devFields').classList.add('hidden');
+          document.getElementById('clientFields').classList.remove('hidden');
+        }
+      }
+    }
+
+    function updateDots() {
+      steps.forEach(step => {
+        document.getElementById(`dot${step}`).classList.toggle('active', step === currentStep);
+      });
+    }
+
+    function generateDemo() {
+      const rand = () => Math.random().toString(36).substring(2, 8);
+      document.getElementById("fullName").value = "Demo User " + rand();
+      document.getElementById("email").value = "demo_" + rand() + "@mail.com";
+      const pass = "P@ss" + rand() + "!";
+      document.getElementById("password").value = pass;
+      document.getElementById("confirmPassword").value = pass;
+      document.getElementById("userType").value = "Developer";
+      alert("Demo details generated!");
+    }
+
+    document.getElementById("signupStep3").onsubmit = e => {
+      e.preventDefault();
+      alert("Account created successfully! 🎉");
+      closeModal("signupModal");
+    };
+  </script>
+</body>
+</html>

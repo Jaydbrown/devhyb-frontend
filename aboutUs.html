@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | DevHub</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .top-nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.logo a {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #007BFF;
+  text-decoration: none;
+  transition: 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.logo a:hover {
+  color: #0056c7;
+}
+    /* Hero Section */
+    .about-hero {
+      background: linear-gradient(to right, #007BFF, #0056c7);
+      color: white;
+      text-align: center;
+      padding: 100px 20px 80px;
+    }
+
+    .about-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Mission / Vision Section */
+    .mission-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 60px 10%;
+    }
+
+    .mission-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .mission-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .mission-card h3 {
+      color: #007BFF;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .mission-card p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* Our Team */
+    .team-section {
+      background: #f8f9fb;
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    .team-section h2 {
+      font-size: 2rem;
+      color: #222;
+      margin-bottom: 2rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .team-card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      transition: transform 0.3s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .team-card img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .team-card h4 {
+      color: #007BFF;
+      font-size: 1.1rem;
+    }
+
+    .team-card p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Call to Action */
+    .cta-section {
+      background: linear-gradient(to right, #0056c7, #007BFF);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-section .btn {
+      background: white;
+      color: #007BFF;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .cta-section .btn:hover {
+      background: #e3f0ff;
+    }
+
+    @media (max-width: 768px) {
+      .about-hero h1 { font-size: 2.2rem; }
+      .mission-section, .team-section { padding: 60px 6%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP NAV (consistent with previous design) ===== -->
+  <nav class="top-nav">
+    <div class="logo">
+        <a href="index.html">
+            DevHub
+        </a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="about-hero">
+    <h1>About DevHub</h1>
+    <p>DevHub is the trusted platform where businesses and skilled developers connect, collaborate, and create innovative digital solutions together.</p>
+  </section>
+
+  <!-- ===== MISSION SECTION ===== -->
+  <section class="mission-section">
+    <div class="mission-card">
+      <h3>Our Mission</h3>
+      <p>To empower developers and businesses worldwide by creating an ecosystem that promotes transparency, skill growth, and seamless project collaboration.</p>
+    </div>
+
+    <div class="mission-card">
+      <h3>Our Vision</h3>
+      <p>We envision a future where every business, no matter how small, can easily access the global pool of tech talent, and every developer can find meaningful, rewarding work.</p>
+    </div>
+
+    <div class="mission-card">
+      <h3>Our Values</h3>
+      <p>Integrity, innovation, inclusivity, and collaboration. We believe in creating opportunities for everyone to grow and succeed together.</p>
+    </div>
+  </section>
+
+  <!-- ===== TEAM SECTION ===== -->
+  <section class="team-section">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member">
+        <h4>Taiwo Adeyemi</h4>
+        <p>Founder & CEO</p>
+      </div>
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Team Member">
+        <h4>Lisa Okafor</h4>
+        <p>Head of Design</p>
+      </div>
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/men/53.jpg" alt="Team Member">
+        <h4>Victor Eze</h4>
+        <p>Lead Developer</p>
+      </div>
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/women/10.jpg" alt="Team Member">
+        <h4>Sophia Bello</h4>
+        <p>Marketing Strategist</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="cta-section">
+    <h2>Ready to Build Something Great?</h2>
+    <p>Join DevHub today to hire top developers or showcase your coding skills to the world.</p>
+    <button class="btn">Get Started</button>
+  </section>
+
+</body>
+</html>

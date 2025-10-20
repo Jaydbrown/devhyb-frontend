@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Dashboard - DevHub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f8faff;
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 250px;
+      background: #fff;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #007bff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-bottom: 20px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .logout {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .logout button {
+      background: #f44336;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .logout button:hover {
+      background: #d32f2f;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .dashboard-header h2 {
+      color: #222;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* ===== STATS ===== */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+
+    .card h3 {
+      color: #007bff;
+      font-size: 2rem;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-top: 5px;
+    }
+
+    /* ===== PROJECTS ===== */
+    .projects {
+      margin-bottom: 30px;
+    }
+
+    .projects h3 {
+      margin-bottom: 15px;
+      color: #222;
+    }
+
+    .project-list {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      padding: 15px 20px;
+    }
+
+    .project-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .project-item:last-child {
+      border-bottom: none;
+    }
+
+    .project-item span {
+      color: #555;
+    }
+
+    .project-status {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .in-progress { background: #fff3cd; color: #856404; }
+    .completed { background: #d4edda; color: #155724; }
+    .pending { background: #f8d7da; color: #721c24; }
+
+    /* ===== MESSAGES ===== */
+    .messages h3 {
+      margin-bottom: 15px;
+      color: #222;
+    }
+
+    .message-list {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      padding: 15px 20px;
+    }
+
+    .message {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .message:last-child {
+      border-bottom: none;
+    }
+
+    .message small {
+      color: #777;
+    }
+
+    /* ===== RECOMMENDED DEVELOPERS ===== */
+    .recommended {
+      margin-top: 50px;
+    }
+
+    .recommended h3 {
+      color: #222;
+      margin-bottom: 15px;
+    }
+
+    .dev-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .dev-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dev-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .dev-info img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .dev-details h4 {
+      margin-bottom: 4px;
+      color: #007bff;
+    }
+
+    .dev-details p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .dev-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-outline,
+    .btn-blue {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .btn-blue {
+      background: #007BFF;
+      color: white;
+    }
+
+    .btn-blue:hover {
+      background: #0056c7;
+    }
+
+    .btn-outline {
+      border: 1px solid #007BFF;
+      color: #007BFF;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: #007BFF;
+      color: white;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 800px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        padding: 20px;
+      }
+      .dev-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .dev-buttons {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div>
+      <div class="logo">DevHub</div>
+      <ul class="nav-links">
+        <li><a href="#" class="active">🏠 Dashboard</a></li>
+        <li><a href="#">📁 My Projects</a></li>
+        <li><a href="#">💬 Messages</a></li>
+        <li><a href="#">👥 Developers</a></li>
+        <li><a href="#">⚙️ Settings</a></li>
+      </ul>
+    </div>
+    <div class="logout">
+      <button>Logout</button>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+    <div class="dashboard-header">
+      <h2>Welcome back, Amaka 👋</h2>
+      <div class="user-info">
+        <img src="https://randomuser.me/api/portraits/women/50.jpg" alt="User" />
+        <span>@amaka.client</span>
+      </div>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <div class="stats">
+      <div class="card">
+        <h3>5</h3>
+        <p>Active Projects</p>
+      </div>
+      <div class="card">
+        <h3>$8.3k</h3>
+        <p>Total Spent</p>
+      </div>
+      <div class="card">
+        <h3>3</h3>
+        <p>Developers Hired</p>
+      </div>
+      <div class="card">
+        <h3>4.8⭐</h3>
+        <p>Average Project Rating</p>
+      </div>
+    </div>
+
+    <!-- ===== PROJECTS ===== -->
+    <div class="projects">
+      <h3>Recent Projects</h3>
+      <div class="project-list">
+        <div class="project-item">
+          <span>Food Delivery App</span>
+          <span class="project-status in-progress">In Progress</span>
+        </div>
+        <div class="project-item">
+          <span>Company Portfolio Site</span>
+          <span class="project-status completed">Completed</span>
+        </div>
+        <div class="project-item">
+          <span>Chat Support Integration</span>
+          <span class="project-status pending">Pending</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MESSAGES ===== -->
+    <div class="messages">
+      <h3>Recent Messages</h3>
+      <div class="message-list">
+        <div class="message">
+          <span><strong>Emmanuel Adeyemi:</strong> Design mockups uploaded ✅</span>
+          <small>10m ago</small>
+        </div>
+        <div class="message">
+          <span><strong>Victor Eze:</strong> Sent project proposal</span>
+          <small>2h ago</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RECOMMENDED DEVELOPERS ===== -->
+    <div class="recommended">
+      <h3>Recommended Developers for You</h3>
+      <div class="dev-list">
+        <div class="dev-card">
+          <div class="dev-info">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Dev" />
+            <div class="dev-details">
+              <h4>Emmanuel Adeyemi</h4>
+              <p>Full Stack Developer — React, Node.js, APIs</p>
+              <p>⭐ 4.9 (120 reviews)</p>
+            </div>
+          </div>
+          <div class="dev-buttons">
+            <a href="developer-profile.html" class="btn-outline">View Profile</a>
+            <a href="message-developer.html" class="btn-blue">Message</a>
+          </div>
+        </div>
+
+        <div class="dev-card">
+          <div class="dev-info">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dev" />
+            <div class="dev-details">
+              <h4>Chisom Daniels</h4>
+              <p>Frontend Developer — Vue.js, Tailwind, Next.js</p>
+              <p>⭐ 4.8 (98 reviews)</p>
+            </div>
+          </div>
+          <div class="dev-buttons">
+            <a href="developer-profile.html" class="btn-outline">View Profile</a>
+            <a href="message-developer.html" class="btn-blue">Message</a>
+          </div>
+        </div>
+
+        <div class="dev-card">
+          <div class="dev-info">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dev" />
+            <div class="dev-details">
+              <h4>Victor Eze</h4>
+              <p>Mobile Developer — Flutter, React Native</p>
+              <p>⭐ 5.0 (150 reviews)</p>
+            </div>
+          </div>
+          <div class="dev-buttons">
+            <a href="developer-profile.html" class="btn-outline">View Profile</a>
+            <a href="message-developer.html" class="btn-blue">Message</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="api.js"></script>
+  <script src="client-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 🌐 Navbar -->
+  <nav class="navbar">
+    <div class="logo">DevHub</div>
+    
+    
+    <div class="nav-right">
+
+      <div class="about-Us">
+        <a href="aboutUs.html">About us</a>
+      </div>
+
+      <div class="search-box">
+        <input type="text" placeholder="Search..." id="searchInput">
+        <button id="searchBtn">🔍</button>
+      </div>
+
+      <div class="auth-buttons">
+        <!-- Sign In and Log In Buttons -->
+<button class="btn sign-in" id="openSignIn">Sign In</button>
+<button class="btn log-in" id="openLogIn">Log In</button>
+
+<!-- ===== Log In Modal ===== -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+    <h2>Log In</h2>
+    <form id="loginForm">
+      <input type="email" placeholder="Email address" required />
+      <input type="password" placeholder="Password" required />
+      <label><input type="checkbox" /> Remember Me</label>
+      <button type="submit" class="btn-primary">Log In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== Sign Up Modal (3 steps) ===== -->
+<div class="modal" id="signupModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('signupModal')">&times;</button>
+    <h2>Sign Up</h2>
+
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="dot active" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+    </div>
+
+    <!-- Step 1 -->
+    <form id="signupStep1" class="signup-step">
+      <input id="fullName" type="text" placeholder="Full Name" required />
+      <input id="email" type="email" placeholder="Email Address" required />
+      <input id="password" type="password" placeholder="Password" required />
+      <input id="confirmPassword" type="password" placeholder="Confirm Password" required />
+      <select id="userType" required>
+        <option value="">Select User Type</option>
+        <option value="Developer">Developer</option>
+        <option value="Client">Client</option>
+      </select>
+      <label><input type="checkbox" required /> Agree to Terms</label>
+      <div class="form-buttons">
+        <button type="button" class="btn-primary" onclick="nextStep(2)">Next</button>
+        <button class="generate-btn" type="button" onclick="generateDemo()">Generate Demo</button>
+      </div>
+    </form>
+
+    <!-- Step 2 -->
+    <form id="signupStep2" class="signup-step hidden">
+      <div id="devFields">
+        <input type="text" placeholder="Username / Display Name" />
+        <textarea placeholder="Short Bio"></textarea>
+        <input type="text" placeholder="Skills (comma separated)" />
+        <select>
+          <option value="">Experience Level</option>
+          <option>Junior</option><option>Mid</option><option>Senior</option>
+        </select>
+        <input type="number" placeholder="Years of Experience" />
+        <input type="url" placeholder="Portfolio / GitHub link" />
+        <input type="text" placeholder="Location / Timezone" />
+        <input type="number" placeholder="Hourly Rate (USD)" />
+      </div>
+      <div id="clientFields" class="hidden">
+        <input type="text" placeholder="Company / Organization Name" />
+        <input type="url" placeholder="Company Website" />
+        <input type="text" placeholder="Industry" />
+        <input type="text" placeholder="Company Size" />
+        <input type="email" placeholder="Work Email" />
+        <input type="text" placeholder="Project Budget Range" />
+        <input type="text" placeholder="Location / Timezone" />
+      </div>
+      <div class="form-buttons">
+        <button type="button" class="btn-secondary" onclick="prevStep(1)">Back</button>
+        <button type="button" class="btn-primary" onclick="nextStep(3)">Next</button>
+      </div>
+    </form>
+
+    <!-- Step 3 -->
+    <form id="signupStep3" class="signup-step hidden">
+      <input type="tel" placeholder="Phone Number" />
+      <input type="text" placeholder="Verification Code" />
+      <select>
+        <option>Preferred Communication</option>
+        <option>Email</option>
+        <option>WhatsApp</option>
+        <option>Slack</option>
+      </select>
+      <label><input type="checkbox" /> Subscribe to updates</label>
+      <label><input type="checkbox" required /> Agree to Privacy Policy</label>
+      <div class="form-buttons">
+        <button type="button" class="btn-secondary" onclick="prevStep(2)">Back</button>
+        <button type="submit" class="btn-primary">Finish & Create Account</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- 💼 Hero Section -->
+  <section class="hero">
+    <h1>Find Developers On Demand</h1>
+    <p>
+      Connect with skilled freelance developers for direct hire or leverage our
+      professional department project support.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="hero-btn hire">Hire a Developer</button>
+      <button class="hero-btn post">Post a Job</button>
+    </div>
+  </section>
+
+  <!-- 🔄 Toggle Section -->
+  <section class="toggle-section">
+    <div class="toggle-container">
+      <button class="toggle-btn active" id="directBtn">Direct Hire</button>
+      <button class="toggle-btn" id="proBtn">Through Pro Department</button>
+    </div>
+  </section><!-- 🧭 Categories Section -->
+<section class="categories">
+  <h2>Categories</h2>
+  <div class="slider-container">
+    <button class="slide-btn prev">&#10094;</button>
+    <div class="slider">
+      <div class="slide">Frontend</div>
+      <div class="slide">Backend</div>
+      <div class="slide">Mobile Apps</div>
+      <div class="slide">UI/UX Design</div>
+      <div class="slide">Data Science</div>
+      <div class="slide">Game Dev</div>
+      <div class="slide">AI / ML</div>
+      <div class="slide">Cloud Services</div>
+    </div>
+    <button class="slide-btn next">&#10095;</button>
+  </div>
+</section>
+
+<!-- 💬 Testimonials Section -->
+<section class="testimonials">
+  <h2>What Clients Say</h2>
+  <div class="testimonial-box">
+    <p id="testimonialText">"DevHub helped me find a developer in just one day — amazing experience!"</p>
+    <span id="testimonialAuthor">— Sarah, Startup Founder</span>
+  </div>
+</section>
+  <!-- Add this section AFTER the testimonials section and BEFORE the closing body tag -->
+
+<!-- 👨‍💻 Featured Developers Section -->
+<section class="featured-developers">
+  <h2>Featured Developers</h2>
+  <p class="section-subtitle">Connect with talented developers ready to bring your projects to life</p>
+  
+  <div id="featuredDevelopers" class="developers-grid">
+    <!-- Developers will be loaded here by JavaScript -->
+    <div class="loading-spinner">Loading developers...</div>
+  </div>
+  
+  <div class="view-all-container">
+    <a href="find-developers.html" class="btn-view-all">View All Developers →</a>
+  </div>
+</section>
+
+<!-- Update your script tags at the bottom to include index.js -->
+<script src="api.js"></script>
+<script src="auth.js"></script>
+<script src="index.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
