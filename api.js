@@ -1,7 +1,7 @@
 // DevHub API Client
 // Include this file in all your HTML pages
 
-const API_BASE_URL = 'https://devhub-rshq.onrender.com';
+const API_BASE_URL = ' https://devhub-rshq.onrender.com/api';
 
 // ==================== HELPER FUNCTIONS ====================
 
@@ -393,7 +393,7 @@ const showError = (message, elementId = 'error-message') => {
       element.innerHTML = '';
     }, 5000);
   } else {
-    alert(message);
+    console.error('Error:', message);
   }
 };
 
@@ -406,7 +406,7 @@ const showSuccess = (message, elementId = 'success-message') => {
       element.innerHTML = '';
     }, 5000);
   } else {
-    alert(message);
+    console.log('Success:', message);
   }
 };
 
@@ -434,6 +434,4 @@ window.DevHubAPI = {
   getToken,
 };
 
-
 console.log('✅ DevHub API Client loaded successfully!');
-
