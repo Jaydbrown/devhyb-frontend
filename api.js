@@ -1,7 +1,7 @@
 // DevHub API Client
 // Include this file in all your HTML pages
 
-const API_BASE_URL = 'www.devhyb-frontend.vercel.app';
+const API_BASE_URL = 'https://devhub-rshq.onrender.com';
 
 // ==================== HELPER FUNCTIONS ====================
 
@@ -436,3 +436,4 @@ window.DevHubAPI = {
 
 
 console.log('✅ DevHub API Client loaded successfully!');
+
