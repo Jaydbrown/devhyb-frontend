@@ -1,7 +1,7 @@
 // DevHub API Client
 // Include this file in all your HTML pages
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'www.devhyb-frontend.vercel.app';
 
 // ==================== HELPER FUNCTIONS ====================
 
@@ -433,5 +433,6 @@ window.DevHubAPI = {
   getCurrentUser,
   getToken,
 };
+
 
 console.log('✅ DevHub API Client loaded successfully!');
