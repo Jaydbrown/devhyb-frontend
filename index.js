@@ -2,12 +2,24 @@
 
 // ==================== LOAD FEATURED DEVELOPERS ====================
 
-async function loadFeaturedDevelopers() {
+window.loadFeaturedDevelopers = async function() {
   try {
     // Fetch developers from API (no authentication required)
-    const response = await fetch('https://devhub-rshq.onrender.com/api/developers?limit=12');
+    const response = await fetch('http://localhost:5000/api/developers?limit=12');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const data = await response.json();
-    const developers = data.developers || data;
+    
+    // Handle both response formats
+    let developers = [];
+    if (data.developers && Array.isArray(data.developers)) {
+      developers = data.developers;
+    } else if (Array.isArray(data)) {
+      developers = data;
+    }
 
     const container = document.getElementById('featuredDevelopers');
     
@@ -32,7 +44,15 @@ async function loadFeaturedDevelopers() {
     console.error('Error loading developers:', error);
     const container = document.getElementById('featuredDevelopers');
     if (container) {
-      container.innerHTML = '<p style="text-align: center; padding: 40px; color: #f44336;">Failed to load developers. Please try again later.</p>';
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+          <p style="color: #f44336; margin-bottom: 10px;">⚠️ Failed to load developers</p>
+          <p style="color: #666; font-size: 0.9rem;">Please make sure the backend server is running on port 5000</p>
+          <button onclick="loadFeaturedDevelopers()" style="margin-top: 15px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            Try Again
+          </button>
+        </div>
+      `;
     }
   }
 }
@@ -279,5 +299,4 @@ if (searchBtn && searchInput) {
       }
     }
   });
-
 }
