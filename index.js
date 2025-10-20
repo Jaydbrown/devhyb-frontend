@@ -5,7 +5,7 @@
 window.loadFeaturedDevelopers = async function() {
   try {
     // Fetch developers from API (no authentication required)
-    const response = await fetch('http://localhost:5000/api/developers?limit=12');
+    const response = await fetch(' https://devhub-rshq.onrender.com/api/developers?limit=12');
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -300,3 +300,4 @@ if (searchBtn && searchInput) {
     }
   });
 }
+
