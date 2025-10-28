@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DevHub</title>
+  <title>DevHub - Connect Developers & Clients Worldwide</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,177 +12,463 @@
   <nav class="navbar">
     <div class="logo">DevHub</div>
     
+    <div class="nav-center">
+      <a href="aboutUs.html" class="nav-link">About</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="#for-who" class="nav-link">Who We Serve</a>
+    </div>
     
     <div class="nav-right">
-
-      <div class="about-Us">
-        <a href="aboutUs.html">About us</a>
-      </div>
-
-      <div class="search-box">
-        <input type="text" placeholder="Search..." id="searchInput">
-        <button id="searchBtn">🔍</button>
-      </div>
-
       <div class="auth-buttons">
-        <!-- Sign In and Log In Buttons -->
-<button class="btn sign-in" id="openSignIn">Sign In</button>
-<button class="btn log-in" id="openLogIn">Log In</button>
-
-<!-- ===== Log In Modal ===== -->
-<div class="modal" id="loginModal">
-  <div class="modal-content">
-    <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
-    <h2>Log In</h2>
-    <form id="loginForm">
-      <input type="email" placeholder="Email address" required />
-      <input type="password" placeholder="Password" required />
-      <label><input type="checkbox" /> Remember Me</label>
-      <button type="submit" class="btn-primary">Log In</button>
-    </form>
-  </div>
-</div>
-
-<!-- ===== Sign Up Modal (3 steps) ===== -->
-<div class="modal" id="signupModal">
-  <div class="modal-content">
-    <button class="close-btn" onclick="closeModal('signupModal')">&times;</button>
-    <h2>Sign Up</h2>
-
-    <!-- Step Indicator -->
-    <div class="step-indicator">
-      <div class="dot active" id="dot1"></div>
-      <div class="dot" id="dot2"></div>
-      <div class="dot" id="dot3"></div>
-    </div>
-
-    <!-- Step 1 -->
-    <form id="signupStep1" class="signup-step">
-      <input id="fullName" type="text" placeholder="Full Name" required />
-      <input id="email" type="email" placeholder="Email Address" required />
-      <input id="password" type="password" placeholder="Password" required />
-      <input id="confirmPassword" type="password" placeholder="Confirm Password" required />
-      <select id="userType" required>
-        <option value="">Select User Type</option>
-        <option value="Developer">Developer</option>
-        <option value="Client">Client</option>
-      </select>
-      <label><input type="checkbox" required /> Agree to Terms</label>
-      <div class="form-buttons">
-        <button type="button" class="btn-primary" onclick="nextStep(2)">Next</button>
-        <button class="generate-btn" type="button" onclick="generateDemo()">Generate Demo</button>
-      </div>
-    </form>
-
-    <!-- Step 2 -->
-    <form id="signupStep2" class="signup-step hidden">
-      <div id="devFields">
-        <input type="text" placeholder="Username / Display Name" />
-        <textarea placeholder="Short Bio"></textarea>
-        <input type="text" placeholder="Skills (comma separated)" />
-        <select>
-          <option value="">Experience Level</option>
-          <option>Junior</option><option>Mid</option><option>Senior</option>
-        </select>
-        <input type="number" placeholder="Years of Experience" />
-        <input type="url" placeholder="Portfolio / GitHub link" />
-        <input type="text" placeholder="Location / Timezone" />
-        <input type="number" placeholder="Hourly Rate (USD)" />
-      </div>
-      <div id="clientFields" class="hidden">
-        <input type="text" placeholder="Company / Organization Name" />
-        <input type="url" placeholder="Company Website" />
-        <input type="text" placeholder="Industry" />
-        <input type="text" placeholder="Company Size" />
-        <input type="email" placeholder="Work Email" />
-        <input type="text" placeholder="Project Budget Range" />
-        <input type="text" placeholder="Location / Timezone" />
-      </div>
-      <div class="form-buttons">
-        <button type="button" class="btn-secondary" onclick="prevStep(1)">Back</button>
-        <button type="button" class="btn-primary" onclick="nextStep(3)">Next</button>
-      </div>
-    </form>
-
-    <!-- Step 3 -->
-    <form id="signupStep3" class="signup-step hidden">
-      <input type="tel" placeholder="Phone Number" />
-      <input type="text" placeholder="Verification Code" />
-      <select>
-        <option>Preferred Communication</option>
-        <option>Email</option>
-        <option>WhatsApp</option>
-        <option>Slack</option>
-      </select>
-      <label><input type="checkbox" /> Subscribe to updates</label>
-      <label><input type="checkbox" required /> Agree to Privacy Policy</label>
-      <div class="form-buttons">
-        <button type="button" class="btn-secondary" onclick="prevStep(2)">Back</button>
-        <button type="submit" class="btn-primary">Finish & Create Account</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
+        <button class="btn sign-in" id="openSignIn">Sign Up</button>
+        <button class="btn log-in" id="openLogIn">Log In</button>
       </div>
     </div>
   </nav>
 
-  <!-- 💼 Hero Section -->
-  <section class="hero">
-    <h1>Find Developers On Demand</h1>
-    <p>
-      Connect with skilled freelance developers for direct hire or leverage our
-      professional department project support.
-    </p>
-
-    <div class="hero-buttons">
-      <button class="hero-btn hire">Hire a Developer</button>
-      <button class="hero-btn post">Post a Job</button>
-    </div>
-  </section>
-
-  <!-- 🔄 Toggle Section -->
-  <section class="toggle-section">
-    <div class="toggle-container">
-      <button class="toggle-btn active" id="directBtn">Direct Hire</button>
-      <button class="toggle-btn" id="proBtn">Through Pro Department</button>
-    </div>
-  </section>
-
-  <!-- 🧭 Categories Section -->
-  <section class="categories">
-    <h2>Categories</h2>
-    <div class="slider-container">
-      <button class="slide-btn prev">&#10094;</button>
-      <div class="slider">
-        <div class="slide">Frontend</div>
-        <div class="slide">Backend</div>
-        <div class="slide">Mobile Apps</div>
-        <div class="slide">UI/UX Design</div>
-        <div class="slide">Data Science</div>
-        <div class="slide">Game Dev</div>
-        <div class="slide">AI / ML</div>
-        <div class="slide">Cloud Services</div>
+  <!-- 🎯 Hero Section - Main Introduction -->
+  <section class="hero-main">
+    <div class="hero-content">
+      <h1>Welcome to DevHub</h1>
+      <p class="hero-tagline">The Global Platform Connecting Talented Developers with Businesses That Need Them</p>
+      <p class="hero-description">
+        DevHub is your bridge between exceptional development talent and exciting opportunities. 
+        Whether you're a company looking to build your next big project or a developer seeking 
+        meaningful work, we make connections simple, secure, and successful.
+      </p>
+      <div class="hero-buttons">
+        <button class="hero-btn primary" onclick="window.location.href='find-developers.html'">Find Developers</button>
+        <button class="hero-btn secondary" onclick="document.getElementById('openSignIn').click()">Join as Developer</button>
       </div>
-      <button class="slide-btn next">&#10095;</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <h3>500+</h3>
+        <p>Verified Developers</p>
+      </div>
+      <div class="hero-stat-item">
+        <h3>1,200+</h3>
+        <p>Successful Projects</p>
+      </div>
+      <div class="hero-stat-item">
+        <h3>98%</h3>
+        <p>Satisfaction Rate</p>
+      </div>
     </div>
   </section>
 
-  <!-- 💬 Testimonials Section -->
-  <section class="testimonials">
-    <h2>What Clients Say</h2>
-    <div class="testimonial-box">
-      <p id="testimonialText">"DevHub helped me find a developer in just one day — amazing experience!"</p>
-      <span id="testimonialAuthor">— Sarah, Startup Founder</span>
+  <!-- 📖 About Section -->
+  <section class="about-section" id="about">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>What is DevHub?</h2>
+        <p>
+          DevHub is a comprehensive freelance developer marketplace designed to solve the challenges 
+          businesses face when finding quality development talent, and the struggles developers 
+          encounter searching for legitimate, well-paying projects.
+        </p>
+        <p>
+          We provide a secure, transparent platform where companies can browse verified developer 
+          profiles, view portfolios, read genuine reviews, and hire with confidence. Developers 
+          gain access to quality projects, fair compensation, and tools to build their reputation 
+          and grow their careers.
+        </p>
+        <div class="about-features">
+          <div class="feature-item">
+            <span class="feature-icon">✓</span>
+            <div>
+              <h4>Verified Profiles</h4>
+              <p>All developers are vetted and verified</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✓</span>
+            <div>
+              <h4>Secure Payments</h4>
+              <p>Protected transactions for both parties</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✓</span>
+            <div>
+              <h4>Quality Assurance</h4>
+              <p>Review system ensures accountability</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-image">
+        <div class="image-placeholder">
+          <span>🤝</span>
+          <p>Connecting Talent with Opportunity</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Scripts -->
+  <!-- 🎯 Mission & Vision -->
+  <section class="mission-section">
+    <div class="mission-content">
+      <div class="mission-box">
+        <h3>🎯 Our Mission</h3>
+        <p>
+          To democratize access to quality development talent worldwide, creating opportunities 
+          for skilled developers regardless of location while helping businesses of all sizes 
+          find the perfect match for their projects.
+        </p>
+      </div>
+      <div class="mission-box">
+        <h3>👁️ Our Vision</h3>
+        <p>
+          To become the world's most trusted platform for developer-client connections, where 
+          talent meets opportunity, projects become reality, and careers flourish through 
+          meaningful work and fair compensation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔄 How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <h2>How DevHub Works</h2>
+    <p class="section-subtitle">Simple, transparent, and effective</p>
+    
+    <div class="process-tabs">
+      <button class="tab-btn active" onclick="showTab('clients')">For Clients</button>
+      <button class="tab-btn" onclick="showTab('developers')">For Developers</button>
+    </div>
+
+    <div class="tab-content active" id="clients-tab">
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <h3>Post Your Project or Browse Developers</h3>
+          <p>Create a detailed project brief or search our database of verified developers with specific skills, experience levels, and ratings.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <h3>Review Profiles & Proposals</h3>
+          <p>Examine developer portfolios, read client reviews, check ratings, and receive proposals from interested developers.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <h3>Hire & Collaborate</h3>
+          <p>Choose your developer, agree on terms, and start working. Use our platform for communication, milestone tracking, and secure payments.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <h3>Complete & Review</h3>
+          <p>Receive your completed project, release payment, and leave a review to help future clients make informed decisions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="developers-tab">
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <h3>Create Your Professional Profile</h3>
+          <p>Showcase your skills, experience, portfolio, and set your rates. Build a profile that attracts quality clients.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <h3>Browse Projects & Apply</h3>
+          <p>Search for projects matching your skills and interests. Submit proposals explaining why you're the perfect fit.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <h3>Get Hired & Deliver</h3>
+          <p>Once hired, communicate with clients, understand requirements, and deliver quality work on time and within budget.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <h3>Get Paid & Build Reputation</h3>
+          <p>Receive secure payments upon project completion. Earn positive reviews to attract more clients and higher-paying projects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💼 Services We Offer -->
+  <section class="services-section" id="services">
+    <h2>Our Services</h2>
+    <p class="section-subtitle">Two ways to connect with developers</p>
+    
+    <div class="services-container">
+      <div class="service-box">
+        <div class="service-header">
+          <h3>🤝 Direct Hire</h3>
+          <span class="service-badge">Most Popular</span>
+        </div>
+        <p class="service-description">
+          Browse our marketplace of verified developers, review their profiles, and hire directly. 
+          You have full control over selection, terms, and project management.
+        </p>
+        <div class="service-benefits">
+          <h4>Perfect for:</h4>
+          <ul>
+            <li>Businesses with clear project requirements</li>
+            <li>Companies with internal project management</li>
+            <li>Clients who prefer direct developer relationships</li>
+            <li>Projects requiring specific technical expertise</li>
+          </ul>
+          <h4>You get:</h4>
+          <ul>
+            <li>✓ Access to 500+ verified developers</li>
+            <li>✓ Portfolio reviews and client ratings</li>
+            <li>✓ Direct communication and negotiation</li>
+            <li>✓ Flexible hiring terms and rates</li>
+            <li>✓ Secure payment processing</li>
+          </ul>
+        </div>
+        <button class="service-cta" onclick="window.location.href='find-developers.html'">Browse Developers</button>
+      </div>
+
+      <div class="service-box featured">
+        <div class="service-header">
+          <h3>🏢 Pro Department</h3>
+          <span class="service-badge premium">Premium Service</span>
+        </div>
+        <p class="service-description">
+          Our professional team manages everything from developer selection to project delivery. 
+          We handle the complexity so you can focus on your business.
+        </p>
+        <div class="service-benefits">
+          <h4>Perfect for:</h4>
+          <ul>
+            <li>Businesses without technical expertise</li>
+            <li>Complex projects requiring multiple developers</li>
+            <li>Companies needing guaranteed delivery</li>
+            <li>Organizations requiring project management support</li>
+          </ul>
+          <h4>You get:</h4>
+          <ul>
+            <li>✓ Dedicated project manager</li>
+            <li>✓ Hand-picked developer team</li>
+            <li>✓ Quality assurance and testing</li>
+            <li>✓ Regular progress updates</li>
+            <li>✓ Delivery guarantees</li>
+            <li>✓ Post-launch support</li>
+          </ul>
+        </div>
+        <button class="service-cta primary" onclick="alert('Contact our Pro Department team')">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 👥 Who We Serve -->
+  <section class="who-we-serve" id="for-who">
+    <h2>Who DevHub Serves</h2>
+    
+    <div class="serve-grid">
+      <div class="serve-card">
+        <div class="serve-icon">💼</div>
+        <h3>Startups & Entrepreneurs</h3>
+        <p>Building MVPs, launching products, and scaling teams with access to affordable, quality development talent.</p>
+      </div>
+      
+      <div class="serve-card">
+        <div class="serve-icon">🏢</div>
+        <h3>Small & Medium Businesses</h3>
+        <p>Augmenting in-house teams, developing custom solutions, and modernizing systems without full-time hiring costs.</p>
+      </div>
+      
+      <div class="serve-card">
+        <div class="serve-icon">🎨</div>
+        <h3>Agencies & Design Studios</h3>
+        <p>Finding specialized developers for client projects, scaling capacity during busy periods, and filling skill gaps.</p>
+      </div>
+      
+      <div class="serve-card">
+        <div class="serve-icon">👨‍💻</div>
+        <h3>Freelance Developers</h3>
+        <p>Accessing legitimate projects, building reputation, earning fair compensation, and growing development careers.</p>
+      </div>
+      
+      <div class="serve-card">
+        <div class="serve-icon">🎓</div>
+        <h3>Junior to Senior Developers</h3>
+        <p>Finding opportunities matching skill level, gaining experience, building portfolios, and advancing careers.</p>
+      </div>
+      
+      <div class="serve-card">
+        <div class="serve-icon">🌍</div>
+        <h3>Global Talent</h3>
+        <p>Connecting developers worldwide with international opportunities regardless of geographic location.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎯 Why Choose DevHub -->
+  <section class="why-choose">
+    <h2>Why Choose DevHub?</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>🔒 Trust & Security</h3>
+        <p>Verified profiles, secure payments, transparent reviews, and dispute resolution protect both parties.</p>
+      </div>
+      <div class="why-item">
+        <h3>🌟 Quality Talent</h3>
+        <p>All developers are vetted for skills, experience, and professionalism before joining our platform.</p>
+      </div>
+      <div class="why-item">
+        <h3>💰 Fair Pricing</h3>
+        <p>Competitive rates with no hidden fees. Developers set their own rates based on skill and experience.</p>
+      </div>
+      <div class="why-item">
+        <h3>🤝 Support</h3>
+        <p>Dedicated support team available to help with questions, issues, and ensuring project success.</p>
+      </div>
+      <div class="why-item">
+        <h3>⚡ Speed</h3>
+        <p>Find developers quickly with advanced search, filters, and instant communication tools.</p>
+      </div>
+      <div class="why-item">
+        <h3>📈 Growth</h3>
+        <p>Tools and features designed to help developers build careers and businesses scale efficiently.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🚀 CTA Section -->
+  <section class="final-cta">
+    <h2>Ready to Get Started?</h2>
+    <p>Join thousands of developers and businesses building the future together</p>
+    <div class="cta-buttons">
+      <button class="cta-btn clients" onclick="window.location.href='find-developers.html'">
+        <span class="cta-icon">🔍</span>
+        <span>I Need a Developer</span>
+      </button>
+      <button class="cta-btn developers" onclick="document.getElementById('openSignIn').click()">
+        <span class="cta-icon">💼</span>
+        <span>I'm a Developer</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- 📧 Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>DevHub</h3>
+        <p>Connecting talent with opportunity, worldwide.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="find-developers.html">Find Developers</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Success Stories</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 DevHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Modals (Login & Signup) -->
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+      <h2>Log In to DevHub</h2>
+      <form id="loginForm">
+        <input type="email" placeholder="Email address" required />
+        <input type="password" placeholder="Password" required />
+        <label><input type="checkbox" /> Remember Me</label>
+        <button type="submit" class="btn-primary">Log In</button>
+      </form>
+      <p style="text-align: center; margin-top: 15px;">
+        Don't have an account? <a href="#" onclick="closeModal('loginModal'); document.getElementById('openSignIn').click()" style="color: #667eea;">Sign Up</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal" id="signupModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('signupModal')">&times;</button>
+      <h2>Join DevHub</h2>
+      <div class="step-indicator">
+        <div class="dot active" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+      </div>
+      <form id="signupStep1" class="signup-step">
+        <input id="fullName" type="text" placeholder="Full Name" required />
+        <input id="email" type="email" placeholder="Email Address" required />
+        <input id="password" type="password" placeholder="Password" required />
+        <input id="confirmPassword" type="password" placeholder="Confirm Password" required />
+        <select id="userType" required>
+          <option value="">I am a...</option>
+          <option value="Developer">Developer</option>
+          <option value="Client">Client</option>
+        </select>
+        <label><input type="checkbox" required /> I agree to Terms & Conditions</label>
+        <button type="button" class="btn-primary" onclick="nextStep(2)">Next</button>
+      </form>
+      <form id="signupStep2" class="signup-step hidden">
+        <div id="devFields">
+          <input type="text" placeholder="Skills (comma separated)" />
+          <input type="number" placeholder="Years of Experience" />
+          <input type="number" placeholder="Hourly Rate (USD)" />
+        </div>
+        <div id="clientFields" class="hidden">
+          <input type="text" placeholder="Company Name" />
+          <input type="text" placeholder="Industry" />
+        </div>
+        <div class="form-buttons">
+          <button type="button" class="btn-secondary" onclick="prevStep(1)">Back</button>
+          <button type="button" class="btn-primary" onclick="nextStep(3)">Next</button>
+        </div>
+      </form>
+      <form id="signupStep3" class="signup-step hidden">
+        <input type="tel" placeholder="Phone Number" />
+        <label><input type="checkbox" /> Subscribe to updates</label>
+        <div class="form-buttons">
+          <button type="button" class="btn-secondary" onclick="prevStep(2)">Back</button>
+          <button type="submit" class="btn-primary">Create Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="api.js"></script>
   <script src="auth.js"></script>
-  <script src="index.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Tab switching
+    function showTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(tab + '-tab').classList.add('active');
+    }
+  </script>
 </body>
 </html>
