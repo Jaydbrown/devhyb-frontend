@@ -358,8 +358,14 @@
 
     <!-- ===== QUICK ACTIONS ===== -->
     <div class="quick-actions">
-      <button class="action-btn" onclick="document.querySelector('.nav-links a:nth-child(5)').click()">
+      <button class="action-btn" onclick="document.querySelector('.nav-links li:nth-child(5) a').click()">
         👤 Update Profile
+      </button>
+      <button class="action-btn" onclick="window.location.href='find-developers.html'">
+        🔍 Browse Developers
+      </button>
+      <button class="action-btn" onclick="document.querySelector('.nav-links li:nth-child(4) a').click()">
+        💰 View Earnings
       </button>
     </div>
 
@@ -409,7 +415,7 @@
     <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-top: 30px; text-align: center;">
       <h3 style="margin-bottom: 10px;">🎯 Complete Your Profile</h3>
       <p style="margin-bottom: 15px; opacity: 0.95;">A complete profile increases your chances of getting hired by 80%!</p>
-      <button onclick="document.querySelector('.nav-links a:nth-child(5)').click()" 
+      <button onclick="document.querySelector('.nav-links li:nth-child(5) a').click()" 
         style="background: white; color: #667eea; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s;">
         Update Profile Now
       </button>
@@ -419,10 +425,4 @@
   <script src="api.js"></script>
   <script src="developer-dashboard.js"></script>
 </body>
-</html>document.querySelector('.nav-links a:nth-child(1)').click()">
-        ✏️ Edit Profile
-      </button>
-      <button class="action-btn" onclick="window.location.href='find-developers.html'">
-        🔍 Find Clients
-      </button>
-      <button class="action-btn" onclick="
+</html>
