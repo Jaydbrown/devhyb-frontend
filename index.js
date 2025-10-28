@@ -1,217 +1,23 @@
-// index.js - Homepage Logic with Featured Developers
+// index.js - Homepage Logic
 
-// ==================== LOAD FEATURED DEVELOPERS ====================
-
-window.loadFeaturedDevelopers = async function() {
-  try {
-    // Fetch developers from API (no authentication required)
-    const response = await fetch(' https://devhub-rshq.onrender.com/api/developers?limit=12');
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    // Handle both response formats
-    let developers = [];
-    if (data.developers && Array.isArray(data.developers)) {
-      developers = data.developers;
-    } else if (Array.isArray(data)) {
-      developers = data;
-    }
-
-    const container = document.getElementById('featuredDevelopers');
-    
-    if (!container) {
-      console.error('Featured developers container not found');
-      return;
-    }
-
-    container.innerHTML = '';
-
-    if (developers.length === 0) {
-      container.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">No developers available yet.</p>';
-      return;
-    }
-
-    developers.forEach(dev => {
-      const devCard = createDeveloperCard(dev);
-      container.appendChild(devCard);
-    });
-
-  } catch (error) {
-    console.error('Error loading developers:', error);
-    const container = document.getElementById('featuredDevelopers');
-    if (container) {
-      container.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-          <p style="color: #f44336; margin-bottom: 10px;">⚠️ Failed to load developers</p>
-          <p style="color: #666; font-size: 0.9rem;">Please make sure the backend server is running on port 5000</p>
-          <button onclick="loadFeaturedDevelopers()" style="margin-top: 15px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">
-            Try Again
-          </button>
-        </div>
-      `;
-    }
-  }
-}
-
-// ==================== CREATE DEVELOPER CARD ====================
-
-function createDeveloperCard(dev) {
-  const card = document.createElement('div');
-  card.className = 'developer-card';
-  
-  const skills = dev.skills ? dev.skills.split(',').slice(0, 3).join(', ') : 'Full Stack Developer';
-  const rating = parseFloat(dev.rating || 0).toFixed(1);
-  const reviews = dev.total_reviews || 0;
-  
-  card.innerHTML = `
-    <div class="dev-avatar">
-      <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(dev.full_name)}&size=120&background=667eea&color=fff" alt="${dev.full_name}">
-      <div class="dev-rating">
-        <span>⭐ ${rating}</span>
-      </div>
-    </div>
-    <div class="dev-details">
-      <h3>${dev.full_name}</h3>
-      <p class="dev-skills">${skills}</p>
-      <p class="dev-experience">${dev.years_experience || 0}+ years experience</p>
-      <div class="dev-stats">
-        <span>💼 ${reviews} reviews</span>
-        <span>💰 $${dev.hourly_rate || 45}/hr</span>
-      </div>
-    </div>
-    <div class="dev-actions">
-      <button onclick="viewDeveloperProfile(${dev.id})" class="btn-view">View Profile</button>
-      <button onclick="hireDeveloper(${dev.id})" class="btn-hire">Hire Now</button>
-    </div>
-  `;
-  
-  return card;
-}
-
-// ==================== VIEW DEVELOPER PROFILE ====================
-
-function viewDeveloperProfile(devId) {
-  window.location.href = `developer-profile.html?id=${devId}`;
-}
-
-// ==================== HIRE DEVELOPER ====================
-
-function hireDeveloper(devId) {
-  // Check if user is logged in
-  const token = localStorage.getItem('devhub_token');
-  
-  if (!token) {
-    alert('Please login to hire a developer');
-    document.getElementById('openLogIn').click();
-    return;
-  }
-  
-  // Check if user is a client
-  const user = JSON.parse(localStorage.getItem('devhub_user') || '{}');
-  if (user.userType !== 'Client') {
-    alert('Only clients can hire developers. Please register as a client.');
-    return;
-  }
-  
-  // Store developer ID and redirect to create project
-  localStorage.setItem('hire_developer_id', devId);
-  
-  // For now, show quick hire modal
-  showQuickHireModal(devId);
-}
-
-// ==================== QUICK HIRE MODAL ====================
-
-function showQuickHireModal(devId) {
-  const modal = document.createElement('div');
-  modal.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  `;
-  
-  modal.innerHTML = `
-    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%;">
-      <h2 style="margin-bottom: 20px;">💼 Quick Hire</h2>
-      <form id="quickHireForm">
-        <input type="text" id="projectTitle" placeholder="Project Title" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px;">
-        <textarea id="projectDesc" placeholder="Project Description" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; min-height: 100px;"></textarea>
-        <input type="number" id="projectBudget" placeholder="Budget (USD)" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px;">
-        <input type="date" id="projectDeadline" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 6px;">
-        <div style="display: flex; gap: 10px;">
-          <button type="submit" style="flex: 1; background: #667eea; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600;">
-            Create Project
-          </button>
-          <button type="button" onclick="this.closest('div').parentElement.parentElement.remove()" style="flex: 1; background: #f5f5f5; color: #333; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600;">
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
-  `;
-  
-  document.body.appendChild(modal);
-  
-  // Handle form submission
-  document.getElementById('quickHireForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const projectData = {
-      title: document.getElementById('projectTitle').value,
-      description: document.getElementById('projectDesc').value,
-      budget: parseFloat(document.getElementById('projectBudget').value),
-      deadline: document.getElementById('projectDeadline').value,
-      developerId: devId
-    };
-    
-    try {
-      const token = localStorage.getItem('devhub_token');
-      const response = await fetch('http://localhost:5000/api/projects', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(projectData)
-      });
-      
-      if (response.ok) {
-        alert('Project created successfully! Check your dashboard.');
-        modal.remove();
-        window.location.href = 'client-dashboard.html';
-      } else {
-        alert('Failed to create project. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error creating project:', error);
-      alert('Error creating project. Please try again.');
-    }
-  });
-  
-  // Close on outside click
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.remove();
-    }
-  });
-}
-
-// ==================== HERO BUTTONS ====================
-
+// ==================== DIRECT HIRE BUTTON ====================
 document.addEventListener('DOMContentLoaded', () => {
-  // Load featured developers
-  loadFeaturedDevelopers();
+  const directBtn = document.getElementById('directBtn');
+  const proBtn = document.getElementById('proBtn');
+  
+  // Direct Hire - Navigate to find developers page
+  if (directBtn) {
+    directBtn.addEventListener('click', () => {
+      window.location.href = 'find-developers.html';
+    });
+  }
+  
+  // Through Pro Department - Show project form modal
+  if (proBtn) {
+    proBtn.addEventListener('click', () => {
+      showProDepartmentModal();
+    });
+  }
   
   // Hire a Developer button
   const hireBtn = document.querySelector('.hero-btn.hire');
@@ -242,8 +48,125 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ==================== UPDATE NAV FOR LOGGED IN USER ====================
+// ==================== PRO DEPARTMENT MODAL ====================
+function showProDepartmentModal() {
+  // Check if user is logged in
+  const token = localStorage.getItem('devhub_token');
+  
+  if (!token) {
+    alert('Please login to submit a project through Pro Department');
+    document.getElementById('openLogIn').click();
+    return;
+  }
+  
+  // Check if user is a client
+  const user = JSON.parse(localStorage.getItem('devhub_user') || '{}');
+  if (user.userType !== 'Client') {
+    alert('Only clients can submit projects through Pro Department. Please register as a client.');
+    return;
+  }
+  
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.style.display = 'flex';
+  
+  modal.innerHTML = `
+    <div class="modal-content" style="max-width: 600px; width: 90%;">
+      <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+      <h2>💼 Pro Department Project Submission</h2>
+      <p style="color: #666; margin-bottom: 20px;">
+        Submit your project details and our professional team will match you with the best developers.
+      </p>
+      
+      <form id="proDeptForm">
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Project Title</label>
+          <input type="text" id="proProjectTitle" placeholder="e.g., E-commerce Website Development" required 
+            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Project Description</label>
+          <textarea id="proProjectDesc" placeholder="Describe your project requirements, features, and any specific technologies needed..." required 
+            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; min-height: 120px; resize: vertical;"></textarea>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Budget (USD)</label>
+          <input type="number" id="proProjectBudget" placeholder="e.g., 5000" required min="100"
+            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Expected Timeline</label>
+          <input type="date" id="proProjectTimeline" required 
+            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-primary" style="flex: 1; background: #667eea; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+            Submit Project
+          </button>
+          <button type="button" onclick="this.closest('.modal').remove()" class="btn-secondary" style="flex: 1; background: #f5f5f5; color: #333; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // Set minimum date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('proProjectTimeline').setAttribute('min', today);
+  
+  // Handle form submission
+  document.getElementById('proDeptForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const projectData = {
+      title: document.getElementById('proProjectTitle').value,
+      description: document.getElementById('proProjectDesc').value,
+      budget: parseFloat(document.getElementById('proProjectBudget').value),
+      deadline: document.getElementById('proProjectTimeline').value,
+      proDepartment: true // Flag to indicate this is a pro department project
+    };
+    
+    try {
+      const token = localStorage.getItem('devhub_token');
+      const response = await fetch('https://devhub-rshq.onrender.com/api/projects', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(projectData)
+      });
+      
+      if (response.ok) {
+        alert('✅ Project submitted successfully! Our Pro Department team will review it and match you with the best developers.');
+        modal.remove();
+        window.location.href = 'client-dashboard.html';
+      } else {
+        const error = await response.json();
+        alert('Failed to submit project: ' + (error.message || 'Please try again.'));
+      }
+    } catch (error) {
+      console.error('Error submitting project:', error);
+      alert('Error submitting project. Please check your connection and try again.');
+    }
+  });
+  
+  // Close on outside click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  });
+}
 
+// ==================== UPDATE NAV FOR LOGGED IN USER ====================
 function updateNavForLoggedInUser() {
   const user = JSON.parse(localStorage.getItem('devhub_user') || '{}');
   const authButtons = document.querySelector('.auth-buttons');
@@ -258,7 +181,6 @@ function updateNavForLoggedInUser() {
 }
 
 // ==================== GO TO DASHBOARD ====================
-
 window.goToDashboard = function() {
   const user = JSON.parse(localStorage.getItem('devhub_user') || '{}');
   if (user.userType === 'Developer') {
@@ -269,7 +191,6 @@ window.goToDashboard = function() {
 };
 
 // ==================== LOGOUT ====================
-
 window.logout = function() {
   if (confirm('Are you sure you want to logout?')) {
     localStorage.removeItem('devhub_token');
@@ -279,7 +200,6 @@ window.logout = function() {
 };
 
 // ==================== SEARCH FUNCTIONALITY ====================
-
 const searchBtn = document.getElementById('searchBtn');
 const searchInput = document.getElementById('searchInput');
 
@@ -288,6 +208,8 @@ if (searchBtn && searchInput) {
     const searchQuery = searchInput.value.trim();
     if (searchQuery) {
       window.location.href = `find-developers.html?search=${encodeURIComponent(searchQuery)}`;
+    } else {
+      alert('Please enter something to search!');
     }
   });
   
@@ -300,4 +222,3 @@ if (searchBtn && searchInput) {
     }
   });
 }
-
