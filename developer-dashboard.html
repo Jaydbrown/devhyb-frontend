@@ -187,6 +187,7 @@
       font-size: 0.9rem;
       font-weight: 600;
       transition: color 0.3s;
+      cursor: pointer;
     }
 
     .section-link:hover {
@@ -287,6 +288,152 @@
       box-shadow: 0 4px 12px rgba(0,123,255,0.3);
     }
 
+    /* ===== PROFILE EDIT SECTION ===== */
+    .profile-edit-section {
+      display: none;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+
+    .profile-edit-section.active {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      color: #007bff;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: border 0.3s;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-group small {
+      display: block;
+      margin-top: 5px;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+    }
+
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .success-alert {
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      animation: slideDown 0.3s ease;
+    }
+
+    /* ===== DASHBOARD VIEW ===== */
+    .dashboard-view {
+      display: block;
+    }
+
+    .dashboard-view.hidden {
+      display: none;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 800px) {
       body {
@@ -323,6 +470,10 @@
       .stats {
         grid-template-columns: 1fr;
       }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -333,12 +484,12 @@
     <div>
       <div class="logo" onclick="window.location.href='index.html'">DevHub</div>
       <ul class="nav-links">
-        <li><a href="#" class="active">🏠 Dashboard</a></li>
-        <li><a href="#">💼 Projects</a></li>
-        <li><a href="#">💬 Messages</a></li>
-        <li><a href="#">💰 Earnings</a></li>
-        <li><a href="#">👤 Profile</a></li>
-        <li><a href="#">⚙️ Settings</a></li>
+        <li><a href="#" class="active" data-view="dashboard">🏠 Dashboard</a></li>
+        <li><a href="#" data-view="projects">💼 Projects</a></li>
+        <li><a href="#" data-view="messages">💬 Messages</a></li>
+        <li><a href="#" data-view="earnings">💰 Earnings</a></li>
+        <li><a href="#" data-view="profile">👤 Profile</a></li>
+        <li><a href="#" data-view="settings">⚙️ Settings</a></li>
       </ul>
     </div>
     <div class="logout">
@@ -356,69 +507,158 @@
       </div>
     </div>
 
-    <!-- ===== QUICK ACTIONS ===== -->
-    <div class="quick-actions">
-      <button class="action-btn" onclick="document.querySelector('.nav-links li:nth-child(5) a').click()">
-        👤 Update Profile
-      </button>
-      <button class="action-btn" onclick="window.location.href='find-developers.html'">
-        🔍 Browse Developers
-      </button>
-      <button class="action-btn" onclick="document.querySelector('.nav-links li:nth-child(4) a').click()">
-        💰 View Earnings
-      </button>
-    </div>
+    <!-- ===== PROFILE EDIT SECTION (Hidden by default) ===== -->
+    <div class="profile-edit-section" id="profileEditSection">
+      <div class="success-alert" id="successAlert">
+        ✅ Profile updated successfully! Your changes are now visible to clients on the Find Developers page.
+      </div>
 
-    <!-- ===== STATS ===== -->
-    <div class="stats">
-      <div class="card">
-        <h3>0</h3>
-        <p>Active Projects</p>
-      </div>
-      <div class="card">
-        <h3>$0k</h3>
-        <p>Total Earnings</p>
-      </div>
-      <div class="card">
-        <h3>0⭐</h3>
-        <p>Average Rating</p>
-      </div>
-      <div class="card">
-        <h3>0</h3>
-        <p>Clients Worked With</p>
-      </div>
-    </div>
-
-    <!-- ===== RECENT PROJECTS ===== -->
-    <div class="section projects">
       <div class="section-header">
-        <h3>Recent Projects</h3>
-        <a href="#" class="section-link" onclick="event.preventDefault(); alert('View all projects coming soon!')">View All →</a>
+        <h3>✏️ Edit Your Profile</h3>
+        <a class="section-link" onclick="showDashboardView()">← Back to Dashboard</a>
       </div>
-      <div class="project-list">
-        <p style="padding: 20px; text-align: center; color: #666;">Loading projects...</p>
-      </div>
+
+      <form id="editProfileForm">
+        <!-- ===== BASIC INFORMATION ===== -->
+        <h3 class="section-title">📋 Basic Information</h3>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username / Display Name</label>
+          <input type="text" id="username">
+          <small>This will be shown as your display name</small>
+        </div>
+
+        <div class="form-group">
+          <label for="bio">About / Bio *</label>
+          <textarea id="bio" required placeholder="Tell clients about yourself, your experience, and what makes you unique..."></textarea>
+          <small>A compelling bio helps clients understand your expertise</small>
+        </div>
+
+        <!-- ===== PROFESSIONAL DETAILS ===== -->
+        <h3 class="section-title">💼 Professional Details</h3>
+
+        <div class="form-group">
+          <label for="skills">Skills *</label>
+          <input type="text" id="skills" required placeholder="React, Node.js, Python, MongoDB, etc.">
+          <small>Separate skills with commas</small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="experienceLevel">Experience Level *</label>
+            <select id="experienceLevel" required>
+              <option value="">Select Level</option>
+              <option value="Junior">Junior (0-2 years)</option>
+              <option value="Mid">Mid (3-5 years)</option>
+              <option value="Senior">Senior (6+ years)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="yearsExperience">Years of Experience *</label>
+            <input type="number" id="yearsExperience" required min="0" max="50">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="portfolioUrl">Portfolio / GitHub URL</label>
+          <input type="url" id="portfolioUrl" placeholder="https://github.com/yourname or https://yourportfolio.com">
+          <small>Link to your work samples or GitHub profile</small>
+        </div>
+
+        <!-- ===== LOCATION & PRICING ===== -->
+        <h3 class="section-title">📍 Location & Pricing</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="location">Location *</label>
+            <input type="text" id="location" required placeholder="e.g., Lagos, Nigeria or Remote">
+          </div>
+
+          <div class="form-group">
+            <label for="hourlyRate">Hourly Rate (USD) *</label>
+            <input type="number" id="hourlyRate" required min="5" step="5" placeholder="45">
+            <small>Your hourly rate in US Dollars</small>
+          </div>
+        </div>
+
+        <!-- ===== FORM ACTIONS ===== -->
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" onclick="showDashboardView()">
+            Cancel
+          </button>
+          <button type="submit" class="btn-primary" id="submitBtn">
+            Update Profile
+          </button>
+        </div>
+      </form>
     </div>
 
-    <!-- ===== MESSAGES ===== -->
-    <div class="section messages">
-      <div class="section-header">
-        <h3>Recent Messages</h3>
-        <a href="#" class="section-link" onclick="event.preventDefault(); alert('View all messages coming soon!')">View All →</a>
+    <!-- ===== DASHBOARD VIEW ===== -->
+    <div class="dashboard-view" id="dashboardView">
+      <!-- ===== QUICK ACTIONS ===== -->
+      <div class="quick-actions">
+        <button class="action-btn" onclick="window.location.href='find-developers.html'">
+          🔍 Browse Developers
+        </button>
       </div>
-      <div class="message-list">
-        <p style="padding: 20px; text-align: center; color: #666;">No messages yet</p>
-      </div>
-    </div>
 
-    <!-- ===== PROFILE COMPLETION HINT ===== -->
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-top: 30px; text-align: center;">
-      <h3 style="margin-bottom: 10px;">🎯 Complete Your Profile</h3>
-      <p style="margin-bottom: 15px; opacity: 0.95;">A complete profile increases your chances of getting hired by 80%!</p>
-      <button onclick="document.querySelector('.nav-links li:nth-child(5) a').click()" 
-        style="background: white; color: #667eea; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s;">
-        Update Profile Now
-      </button>
+      <!-- ===== STATS ===== -->
+      <div class="stats">
+        <div class="card">
+          <h3>0</h3>
+          <p>Active Projects</p>
+        </div>
+        <div class="card">
+          <h3>$0k</h3>
+          <p>Total Earnings</p>
+        </div>
+        <div class="card">
+          <h3>0⭐</h3>
+          <p>Average Rating</p>
+        </div>
+        <div class="card">
+          <h3>0</h3>
+          <p>Clients Worked With</p>
+        </div>
+      </div>
+
+      <!-- ===== RECENT PROJECTS ===== -->
+      <div class="section projects">
+        <div class="section-header">
+          <h3>Recent Projects</h3>
+          <a class="section-link">View All →</a>
+        </div>
+        <div class="project-list">
+          <p style="padding: 20px; text-align: center; color: #666;">Loading projects...</p>
+        </div>
+      </div>
+
+      <!-- ===== MESSAGES ===== -->
+      <div class="section messages">
+        <div class="section-header">
+          <h3>Recent Messages</h3>
+          <a class="section-link">View All →</a>
+        </div>
+        <div class="message-list">
+          <p style="padding: 20px; text-align: center; color: #666;">No messages yet</p>
+        </div>
+      </div>
+
+      <!-- ===== PROFILE COMPLETION HINT ===== -->
+      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-top: 30px; text-align: center;">
+        <h3 style="margin-bottom: 10px;">🎯 Complete Your Profile</h3>
+        <p style="margin-bottom: 15px; opacity: 0.95;">A complete profile increases your chances of getting hired by 80%!</p>
+        <button onclick="showProfileEdit()" 
+          style="background: white; color: #667eea; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s;">
+          Update Profile Now
+        </button>
+      </div>
     </div>
   </main>
 
