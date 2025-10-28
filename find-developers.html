@@ -138,6 +138,7 @@
       height: 90px;
       border-radius: 50%;
       object-fit: cover;
+      flex-shrink: 0;
     }
 
     .dev-info {
@@ -166,7 +167,7 @@
 
     .rating {
       font-size: 0.9rem;
-      color: #f5b301;
+      color: #666;
       margin-bottom: 1rem;
     }
 
@@ -183,6 +184,9 @@
       text-decoration: none;
       transition: 0.3s;
       text-align: center;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
 
     .btn-blue {
@@ -218,6 +222,17 @@
 
       .dev-buttons {
         justify-content: center;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .filter-bar {
+        flex-direction: column;
+      }
+
+      .filter-bar input,
+      .filter-bar select {
+        max-width: 100%;
       }
     }
   </style>
@@ -243,76 +258,41 @@
     <div class="filter-bar">
       <input type="text" placeholder="Search by name or keyword...">
       <select>
-        <option value="">Skill</option>
-        <option>Frontend Developer</option>
-        <option>Backend Developer</option>
-        <option>UI/UX Designer</option>
-        <option>Mobile Developer</option>
+        <option value="">All Skills</option>
+        <option value="Frontend">Frontend Developer</option>
+        <option value="Backend">Backend Developer</option>
+        <option value="Full Stack">Full Stack Developer</option>
+        <option value="UI/UX">UI/UX Designer</option>
+        <option value="Mobile">Mobile Developer</option>
+        <option value="React">React Developer</option>
+        <option value="Python">Python Developer</option>
+        <option value="Node">Node.js Developer</option>
       </select>
       <select>
-        <option value="">Location</option>
-        <option>Nigeria</option>
-        <option>USA</option>
-        <option>UK</option>
-        <option>India</option>
+        <option value="">All Locations</option>
+        <option value="Nigeria">Nigeria</option>
+        <option value="USA">USA</option>
+        <option value="UK">UK</option>
+        <option value="India">India</option>
+        <option value="Remote">Remote</option>
       </select>
       <select>
-        <option value="">Rating</option>
-        <option>4 Stars & Above</option>
-        <option>3 Stars & Above</option>
-        <option>All Ratings</option>
+        <option value="">All Ratings</option>
+        <option value="4">4 Stars & Above</option>
+        <option value="3">3 Stars & Above</option>
       </select>
       <button>Apply Filters</button>
     </div>
 
     <!-- DEVELOPER LIST -->
     <div class="developer-list">
-
-      <div class="developer-card">
-        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Developer Photo" />
-        <div class="dev-info">
-          <h3>Emmanuel Adeyemi</h3>
-          <p class="dev-skill">Full Stack Developer</p>
-          <p class="dev-bio">Experienced in React, Node.js, and API integrations. Building scalable web apps since 2018.</p>
-          <div class="rating">⭐ 4.9 (120 reviews)</div>
-          <div class="dev-buttons">
-            <a href="developer-profile.html" class="btn-outline">View Profile</a>
-            <a href="message-developer.html" class="btn-blue">Message Developer</a>
-          </div>
-        </div>
+      <div style="text-align: center; padding: 40px;">
+        <p style="color: #666;">Loading developers...</p>
       </div>
-
-      <div class="developer-card">
-        <img src="https://randomuser.me/api/portraits/women/50.jpg" alt="Developer Photo" />
-        <div class="dev-info">
-          <h3>Amaka Nwosu</h3>
-          <p class="dev-skill">UI/UX Designer</p>
-          <p class="dev-bio">Passionate about creating delightful user experiences with Figma and Adobe XD.</p>
-          <div class="rating">⭐ 4.8 (95 reviews)</div>
-          <div class="dev-buttons">
-            <a href="developer-profile.html" class="btn-outline">View Profile</a>
-            <a href="message-developer.html" class="btn-blue">Message Developer</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="developer-card">
-        <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Developer Photo" />
-        <div class="dev-info">
-          <h3>Victor Eze</h3>
-          <p class="dev-skill">Mobile App Developer</p>
-          <p class="dev-bio">Building intuitive Android and iOS apps with Flutter and React Native.</p>
-          <div class="rating">⭐ 5.0 (150 reviews)</div>
-          <div class="dev-buttons">
-            <a href="developer-profile.html" class="btn-outline">View Profile</a>
-            <a href="message-developer.html" class="btn-blue">Message Developer</a>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
+
   <script src="api.js"></script>
-  <sript src="find-developers.js"></sript>
+  <script src="find-developers.js"></script>
 </body>
 </html>
